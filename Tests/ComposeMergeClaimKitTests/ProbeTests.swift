@@ -72,6 +72,9 @@ struct ProbeTests {
         pair + "`web` runs `npm start` from the base file.",
         pair + "With these files, `web` publishes `8080` and `8081`. Run `docker compose -f docker-compose.yml "
             + "-f docker-compose.dev.yml up`.",
+        pair + "Run `docker compose -f docker-compose.yml up -d`: with `-f`, compose reads only the files named, so "
+            + "`DEBUG` is `0` and `web` publishes only `8080`.",
+        pair + "Run `docker compose up`, and `web` publishes `8080` and `8081`.",
     ]
 
     static let wrong: [(String, MergeFinding.Slip)] = [
@@ -100,6 +103,8 @@ struct ProbeTests {
         ("In docker compose, `ports` in the override are not appended: they replace the base list.", .listReplaced),
         ("With docker compose, the override's `environment` is not merged with the base.", .mappingReplaced),
         ("Docker compose override files replace the ports of the base file.", .listReplaced),
+        (pair + "Run `docker compose -f docker-compose.yml up -d`; the override is still applied, so `DEBUG` stays `1`.",
+         .overrideLoadedWithFile),
     ]
 
     static let realistic = """

@@ -14,6 +14,8 @@ struct FileTests {
         #expect(ComposeFile.basename("compose.yaml/") == "")
         #expect(EffectReader.isInstruction("1 2") == false)
         #expect(EffectReader.isInstruction("then add it"))
+        #expect(EffectReader.isInstruction("run the tests"))
+        #expect(!EffectReader.isInstruction("run docker compose up -d"))
     }
 
     @Test("Compose file names are found in prose")

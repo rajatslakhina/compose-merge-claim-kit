@@ -50,7 +50,7 @@ A clause about one file ("in the base file, `web` publishes `8080`"), about a ch
 ## Install
 
 ```swift
-.package(url: "https://github.com/rajatslakhina/compose-merge-claim-kit.git", from: "1.0.0")
+.package(url: "https://github.com/rajatslakhina/compose-merge-claim-kit.git", from: "1.0.1")
 ```
 
 ```swift
@@ -123,13 +123,13 @@ What the oracle showed that the docs do not say:
 | Gate | Result |
 |---|---|
 | `swift build` | 0 warnings, 0 errors |
-| `swift test` | 50 tests in 12 suites (340 parameterized cases), 0 failures |
-| Line coverage | **100.00%** (1975 lines) on all 20 library files |
+| `swift test` | 50 tests in 12 suites (343 parameterized cases), 0 failures |
+| Line coverage | **100.00%** (1976 lines) on all 20 library files |
 | Function coverage | **100.00%** (420 functions) |
-| Region coverage | 99.20% (1364/1375) |
+| Region coverage | 99.20% (1366/1377) |
 | `swiftlint lint --strict` | 0 violations (SwiftLint 0.63.2, run for real) |
 | Parity | 200/200 cases match `docker compose config` |
-| Probes | 53 correct answers never called wrong; 19 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught); a later turn with a new base file is not read with the old override |
+| Probes | 55 correct answers never called wrong; 20 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught); a later turn with a new base file is not read with the old override |
 
 ![Tests](Screenshots/tests.svg)
 
@@ -157,6 +157,7 @@ All public types are `Sendable` value types except the ledger actor.
 
 ## Versions
 
+- **1.0.1** (2026-11-23): "Run `docker compose ...`; <result>" is read. A clause that only runs a compose command no longer makes the sentence an instruction, so the result after it is checked (found by the llm-ecosystem-demo scenario).
 - **1.0.0** (2026-11-23): first release.
 
 ## License

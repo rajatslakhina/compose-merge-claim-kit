@@ -44,13 +44,14 @@ struct EffectReader {
         return subjects
     }
 
-    /// Whether a clause starts with an instruction ("add `!override`", "then run ..."): it says what to do, not
-    /// what the files do.
+    /// Whether a clause starts with an instruction ("add `!override`", "then set ..."): it says what to do, not
+    /// what the files do. "Run `docker compose ...`" is not one: the rest of the sentence says what that run does.
     static func isInstruction(_ clause: String) -> Bool {
         let words = clause.split(whereSeparator: { !$0.isLetter }).map(String.init)
         guard let first = words.first else { return false }
         let start = ["then", "just", "simply", "instead", "also", "now", "first"].contains(first) ? 1 : 0
-        return words.count > start && imperatives.contains(words[start])
+        guard words.count > start, imperatives.contains(words[start]) else { return false }
+        return !(words[start] == "run" && !Commands.selections(inLine: clause).isEmpty)
     }
 
     func read(_ clause: String, _ text: String, _ named: String?) -> [MergeClaim.Subject] {
