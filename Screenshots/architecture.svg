@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+<rect width="1200" height="560" rx="12" fill="#0b1120"/>
+<defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#64748b"/></marker></defs>
+<text x="600" y="34" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="17" text-anchor="middle" font-weight="bold">ComposeMergeClaimKit:&#160;answer&#160;in,&#160;merged&#160;files&#160;judged,&#160;slip&#160;named</text>
+<rect x="40" y="70" width="250" height="110" rx="10" fill="#111827" stroke="#60a5fa" stroke-width="2"/>
+<text x="165.0" y="96" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">Answer&#160;+&#160;question</text>
+<text x="165.0" y="118" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">prose,&#160;fenced&#160;compose&#160;files,</text>
+<text x="165.0" y="135" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">`docker&#160;compose&#160;-f`&#160;commands</text>
+<rect x="350" y="70" width="250" height="110" rx="10" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="475.0" y="96" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeClaimReader</text>
+<text x="475.0" y="118" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">names&#160;files,&#160;tracks&#160;commands</text>
+<text x="475.0" y="135" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">in&#160;order,&#160;splits&#160;clauses</text>
+<rect x="660" y="70" width="230" height="110" rx="10" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="775.0" y="96" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">StatementReader</text>
+<text x="775.0" y="118" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">9&#160;merge&#160;rules,</text>
+<text x="775.0" y="135" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">topic&#160;before&#160;verb,&#160;negation</text>
+<rect x="930" y="70" width="230" height="110" rx="10" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="1045.0" y="96" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">EffectReader</text>
+<text x="1045.0" y="118" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">ports,&#160;image,&#160;command,</text>
+<text x="1045.0" y="135" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">variables&#160;of&#160;the&#160;merged&#160;files</text>
+<rect x="350" y="250" width="250" height="110" rx="10" fill="#111827" stroke="#34d399" stroke-width="2"/>
+<text x="475.0" y="276" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeScene</text>
+<text x="475.0" y="298" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">base&#160;+&#160;override,&#160;or&#160;-f&#160;list;</text>
+<text x="475.0" y="315" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">applied(slip)&#160;for&#160;misreadings</text>
+<rect x="660" y="250" width="250" height="110" rx="10" fill="#111827" stroke="#34d399" stroke-width="2"/>
+<text x="785.0" y="276" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeEngine</text>
+<text x="785.0" y="298" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">keyed&#160;ports/volumes,&#160;mappings&#160;by&#160;key,</text>
+<text x="785.0" y="315" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">replaced&#160;command,&#160;!reset,&#160;!override</text>
+<rect x="950" y="250" width="210" height="110" rx="10" fill="#111827" stroke="#f59e0b" stroke-width="2"/>
+<text x="1055.0" y="276" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeEvaluator</text>
+<text x="1055.0" y="298" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">holds&#160;/&#160;wrong(slip)&#160;/</text>
+<text x="1055.0" y="315" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">unchecked&#160;/&#160;caveat</text>
+<rect x="350" y="420" width="250" height="100" rx="10" fill="#111827" stroke="#f472b6" stroke-width="2"/>
+<text x="475.0" y="446" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeReport</text>
+<text x="475.0" y="468" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">verdict,&#160;note,&#160;feedback,</text>
+<text x="475.0" y="485" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">one&#160;mistake,&#160;one&#160;finding</text>
+<rect x="660" y="420" width="250" height="100" rx="10" fill="#111827" stroke="#f472b6" stroke-width="2"/>
+<text x="785.0" y="446" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">MergeLedger&#160;(actor)</text>
+<text x="785.0" y="468" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">files&#160;across&#160;turns,</text>
+<text x="785.0" y="485" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">repeats&#160;marked</text>
+<rect x="950" y="420" width="210" height="100" rx="10" fill="#111827" stroke="#64748b" stroke-width="2"/>
+<text x="1055.0" y="446" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">docker&#160;compose&#160;config</text>
+<text x="1055.0" y="468" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">200/200&#160;parity&#160;cases</text>
+<text x="1055.0" y="485" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="11.5" text-anchor="middle" font-weight="normal">(Scripts/parity.py)</text>
+<line x1="290" y1="125" x2="350" y2="125" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="600" y1="125" x2="660" y2="125" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="890" y1="125" x2="930" y2="125" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="475" y1="180" x2="475" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="600" y1="305" x2="660" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="910" y1="305" x2="950" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="1045" y1="180" x2="1045" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="1055" y1="360" x2="1055" y2="420" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="950" y1="330" x2="600" y2="450" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<line x1="600" y1="470" x2="660" y2="470" stroke="#64748b" stroke-width="2" marker-end="url(#a)"/>
+<text x="600" y="548" fill="#94a3b8" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle" font-weight="normal">A&#160;stated&#160;result&#160;that&#160;differs&#160;is&#160;wrong&#160;only&#160;when&#160;a&#160;named&#160;misreading&#160;of&#160;the&#160;merge&#160;reproduces&#160;it;&#160;otherwise&#160;unchecked.</text>
+</svg>

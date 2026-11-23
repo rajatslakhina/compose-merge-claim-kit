@@ -1,0 +1,51 @@
+ComposeMergeClaimKit demo: what an answer says about merged compose files, checked with compose's rules
+
+1. A correct answer about the merged result
+  verified: 5 claims checked, 5 hold
+    - rule: commandReplaced: holds. This holds.
+    - `web` runs `npm run dev`: holds. This holds.
+    - `web` publishes ports `8080` and `8081`: holds. This holds.
+    - rule: mappingsMergeByKey: holds. This holds.
+    - `LOG_LEVEL` is `info` in `web`: holds. This holds.
+
+2. A later file's ports read as replacing the base ones
+  wrong: 1 claim checked, 0 hold, 1 wrong
+    - `web` publishes port `8081`, not port `8080`: wrong (listReplaced). With these files, `web` publishes ports `8080` and `8081`. A later file's lists are appended to the earlier ones (`ports` and `volumes` merge items with the same key); tag the list `!override` to replace it.
+
+3. The environment block read as replaced whole
+  wrong: 2 claims checked, 1 hold, 1 wrong
+    - `DEBUG` is `1` in `web`: holds. This holds.
+    - `LOG_LEVEL` is not set in `web`: wrong (mappingReplaced). With these files, `LOG_LEVEL` is `info` in `web`. A later file's `environment` and `labels` are merged key by key: the earlier keys stay unless the later file sets them or `!reset`s them.
+
+4. An empty list read as clearing (one mistake, one finding)
+  wrong: 1 claim checked, 0 hold, 1 wrong
+    - rule broken: emptyListKeeps: wrong (emptyListClears). An empty list in a later file adds nothing, so the earlier items stay; write `!reset []` to clear them.
+  [files alone] wrong: 1 claim checked, 0 hold, 1 wrong
+    - `ports: []` in `docker-compose.override.yml` clears `web`'s `ports`: wrong (emptyListClears). `ports: []` in `docker-compose.override.yml` adds nothing, so `web` keeps the earlier `ports`; write `ports: !reset []` to clear them.
+
+5. The override read as still applying with -f
+  wrong: 1 claim checked, 0 hold, 1 wrong
+    - `web` runs `myapp:dev`: wrong (overrideLoadedWithFile). With these files, `web` runs `myapp:1.0`. With `-f`, compose reads only the files named: the override file is read only when a `-f` names it.
+
+6. Rules stated without files
+  wrong: 3 claims checked, 0 hold, 3 wrong
+    - rule broken: laterFileWins: wrong (earlierFileWins). Where files disagree, the later file wins: compose applies them in order.
+    - rule broken: otherFilesNeedFile: wrong (extraFileAutoLoaded). By default compose reads only the base file and its override; any other file needs its own `-f`.
+    - rule broken: pathsFromProjectDirectory: wrong (pathsRelativeToOverride). Relative paths in every file are resolved from the first file's directory (the project directory), not from the file that writes them.
+
+7. A result that depends on !override
+  caution: 1 claim checked, 0 hold, 1 to check
+    - `web` publishes only port `8443`: caution. This depends on `!override`, which needs Docker Compose 2.24.4 or later; older versions refuse the file.
+
+8. Other kinds of override stay quiet
+  noClaims: no claims about merging compose files
+
+9. A conversation: the same mistake stated again
+  [turn 1] wrong: 1 claim checked, 0 hold, 1 wrong
+    - `web` publishes only port `8081`: wrong (listReplaced). With these files, `web` publishes ports `8080` and `8081`. A later file's lists are appended to the earlier ones (`ports` and `volumes` merge items with the same key); tag the list `!override` to replace it.
+  [turn 2] wrong: 1 claim checked, 0 hold, 1 wrong, 1 repeated
+    - `web` publishes only port `8081`: wrong (listReplaced). With these files, `web` publishes ports `8080` and `8081`. A later file's lists are appended to the earlier ones (`ports` and `volumes` merge items with the same key); tag the list `!override` to replace it.
+  ledger: 2 reviews, 2 claims, 2 flagged, 1 repeated
+
+10. The merge itself, as docker compose config gives it
+  web: image myapp:dev, ports 8080, 8081, DEBUG=1 LOG_LEVEL=info
