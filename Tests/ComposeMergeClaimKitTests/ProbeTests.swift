@@ -75,6 +75,11 @@ struct ProbeTests {
         pair + "Run `docker compose -f docker-compose.yml up -d`: with `-f`, compose reads only the files named, so "
             + "`DEBUG` is `0` and `web` publishes only `8080`.",
         pair + "Run `docker compose up`, and `web` publishes `8080` and `8081`.",
+        pair + "The base file still uses `myapp:1.0`; the override swaps in `myapp:dev`.",
+        pair + "In the base file, `DEBUG` is still `0`.",
+        pair + "`docker-compose.yml` now publishes only `8080`.",
+        pair + "In the override, `web` no longer publishes `8080`.",
+        pair + "The override file still sets `DEBUG` to `1`.",
     ]
 
     static let wrong: [(String, MergeFinding.Slip)] = [

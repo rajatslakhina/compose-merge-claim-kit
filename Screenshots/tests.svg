@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="330" viewBox="0 0 1000 330">
 <rect width="1000" height="330" rx="12" fill="#0b1120"/>
 <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#64748b"/></marker></defs>
-<text x="500" y="32" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold">ComposeMergeClaimKit&#160;1.0.1&#160;quality&#160;gates&#160;(measured)</text>
+<text x="500" y="32" fill="#e2e8f0" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold">ComposeMergeClaimKit&#160;1.0.2&#160;quality&#160;gates&#160;(measured)</text>
 <rect x="20" y="46" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="64" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">swift&#160;build</text>
 <text x="360" y="64" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">0&#160;warnings,&#160;0&#160;errors&#160;(Swift&#160;6.4.2,&#160;macOS)</text>
 <rect x="20" y="76" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="94" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">swift&#160;test&#160;--no-parallel</text>
-<text x="360" y="94" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">50&#160;tests&#160;in&#160;12&#160;suites,&#160;343&#160;parameterized&#160;cases,&#160;0&#160;failures</text>
+<text x="360" y="94" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">50&#160;tests&#160;in&#160;12&#160;suites,&#160;348&#160;parameterized&#160;cases,&#160;0&#160;failures</text>
 <rect x="20" y="106" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="124" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">llvm-cov&#160;lines</text>
 <text x="360" y="124" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(1976&#160;lines)&#160;on&#160;all&#160;20&#160;library&#160;files</text>
@@ -16,13 +16,13 @@
 <text x="360" y="154" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(420&#160;functions);&#160;regions&#160;99.20%&#160;(1366/1377)</text>
 <rect x="20" y="166" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="184" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">swiftlint&#160;lint&#160;--strict</text>
-<text x="360" y="184" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">0&#160;violations&#160;(SwiftLint&#160;0.63.2)</text>
+<text x="360" y="184" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">0&#160;violations&#160;in&#160;22&#160;files&#160;(SwiftLint&#160;0.63.2)</text>
 <rect x="20" y="196" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="214" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">docker&#160;compose&#160;config&#160;parity</text>
 <text x="360" y="214" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">200&#160;of&#160;200&#160;merge&#160;cases&#160;match&#160;(Docker&#160;Compose&#160;2.32.4)</text>
 <rect x="20" y="226" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="244" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">probes:&#160;correct&#160;answers</text>
-<text x="360" y="244" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">55&#160;never&#160;called&#160;wrong;&#160;2&#160;realistic&#160;answers&#160;verified</text>
+<text x="360" y="244" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">60&#160;never&#160;called&#160;wrong;&#160;2&#160;realistic&#160;answers&#160;verified</text>
 <rect x="20" y="256" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="274" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">probes:&#160;wrong&#160;answers</text>
 <text x="360" y="274" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">20&#160;caught&#160;with&#160;the&#160;right&#160;slip;&#160;1&#160;realistic&#160;answer&#160;caught</text>

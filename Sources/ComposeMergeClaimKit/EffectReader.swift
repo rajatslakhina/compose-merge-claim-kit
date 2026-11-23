@@ -17,11 +17,14 @@ struct EffectReader {
                             "the base sets", "the override says", "the base says", "the override defines",
                             "the base defines", "earlier", "the override", "the base", "by default", "normally",
                             "default"]
-    static let mergedCue = ["with both", "both files", "with the override", "with this override", "with that override",
+    /// Cues that say a clause is about the merged files even when it names one file.
+    static let strongCue = ["with both", "both files", "with the override", "with this override", "with that override",
                             "together", "merged", "merging", "combined", "the result", "ends up", "end up",
-                            "effective", "final", "in the end", "now", "after the merge", "when compose merges",
-                            "once merged", "after merging", "still", "keeps", "no longer", "instead of", "anymore",
-                            "these files", "both"]
+                            "effective", "final", "in the end", "after the merge", "when compose merges",
+                            "once merged", "after merging", "these files"]
+    /// Cues that let a sentence be called wrong for a slip one file alone reproduces. "Still" and "now" say a
+    /// value is current, not which file it comes from, so they do not lift a clause that names one file.
+    static let mergedCue = strongCue + ["now", "still", "keeps", "no longer", "instead of", "anymore", "both"]
 
     func claims(in sentence: String) -> [MergeClaim.Subject] {
         let services = scene.services
@@ -37,8 +40,8 @@ struct EffectReader {
             // A file a `docker compose -f` command names is not what the clause is about.
             let scope = Sentences.pieces(clause).filter { !$0.isCode || Commands.selections(inLine: $0.text).isEmpty }
                 .map(\.text).joined(separator: " ").folded
-            if Words.containsAny(text, Self.fileScope), !Words.containsAny(text, Self.mergedCue) { continue }
-            if !ComposeFile.names(in: scope).isEmpty, !Words.containsAny(text, Self.mergedCue) { continue }
+            if Words.containsAny(text, Self.fileScope), !Words.containsAny(text, Self.strongCue) { continue }
+            if !ComposeFile.names(in: scope).isEmpty, !Words.containsAny(text, Self.strongCue) { continue }
             subjects += read(clause, text, current)
         }
         return subjects

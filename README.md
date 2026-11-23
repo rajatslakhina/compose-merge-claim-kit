@@ -29,7 +29,7 @@ A file's name comes from the fence's info string, its first comment line, or the
 
 A stated result that matches the merge **holds**. One that does not is **wrong** only when one of eight known misreadings of the merge gives exactly what the answer says. Any other mismatch is **unchecked**. That rule keeps the kit quiet when it cannot tell what the answer meant.
 
-Four of those misreadings (`listReplaced`, `mappingReplaced`, `earlierFileWins`, `overrideNotLoaded`) give what one file says on its own, so a sentence that may just describe one file ("`DEBUG` is `0` by default") is wrong only when it says it is about the merged files ("with both files", "now", "still", "no longer") or runs its own `docker compose` command. `overrideLoadedWithFile` needs the `-f` command in the same sentence. Before any command, an answer that runs compose with `-f` somewhere is unchecked, and a turn that shows compose files is read with those files only.
+Four of those misreadings (`listReplaced`, `mappingReplaced`, `earlierFileWins`, `overrideNotLoaded`) give what one file says on its own, so a sentence that may just describe one file ("`DEBUG` is `0` by default") is wrong only when it says it is about the merged files ("with both files", "now", "still", "no longer") or runs its own `docker compose` command. A clause that names one file ("in the base file", "`docker-compose.yml` ...") makes no claim at all unless it says "with both files", "merged", "together" or "with the override". `overrideLoadedWithFile` needs the `-f` command in the same sentence. Before any command, an answer that runs compose with `-f` somewhere is unchecked, and a turn that shows compose files is read with those files only.
 
 | Slip | The mistake | What compose does |
 |---|---|---|
@@ -50,7 +50,7 @@ A clause about one file ("in the base file, `web` publishes `8080`"), about a ch
 ## Install
 
 ```swift
-.package(url: "https://github.com/rajatslakhina/compose-merge-claim-kit.git", from: "1.0.1")
+.package(url: "https://github.com/rajatslakhina/compose-merge-claim-kit.git", from: "1.0.2")
 ```
 
 ```swift
@@ -123,13 +123,13 @@ What the oracle showed that the docs do not say:
 | Gate | Result |
 |---|---|
 | `swift build` | 0 warnings, 0 errors |
-| `swift test` | 50 tests in 12 suites (343 parameterized cases), 0 failures |
+| `swift test` | 50 tests in 12 suites (348 parameterized cases), 0 failures |
 | Line coverage | **100.00%** (1976 lines) on all 20 library files |
 | Function coverage | **100.00%** (420 functions) |
 | Region coverage | 99.20% (1366/1377) |
-| `swiftlint lint --strict` | 0 violations (SwiftLint 0.63.2, run for real) |
+| `swiftlint lint --strict` | 0 violations in 22 files (SwiftLint 0.63.2, run for real) |
 | Parity | 200/200 cases match `docker compose config` |
-| Probes | 55 correct answers never called wrong; 20 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught); a later turn with a new base file is not read with the old override |
+| Probes | 60 correct answers never called wrong; 20 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught); a later turn with a new base file is not read with the old override |
 
 ![Tests](Screenshots/tests.svg)
 
@@ -157,6 +157,7 @@ All public types are `Sendable` value types except the ledger actor.
 
 ## Versions
 
+- **1.0.2** (2026-11-23): a clause that names one file ("the base file still uses `myapp:1.0`", "`docker-compose.yml` now publishes only `8080`") makes no claim unless it says it is about the merged files ("with both files", "merged", "together", "with the override"). "Still", "now" and "no longer" no longer lift it; 1.0.1 called those sentences wrong.
 - **1.0.1** (2026-11-23): "Run `docker compose ...`; <result>" is read. A clause that only runs a compose command no longer makes the sentence an instruction, so the result after it is checked (found by the llm-ecosystem-demo scenario).
 - **1.0.0** (2026-11-23): first release.
 
