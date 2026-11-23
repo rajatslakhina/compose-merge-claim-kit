@@ -134,7 +134,8 @@ struct ReaderTests {
     func about() {
         #expect(MergeClaimReader.isAboutMerging(pair))
         #expect(MergeClaimReader.isAboutMerging("How do docker compose override files work?"))
-        #expect(MergeClaimReader.isAboutMerging("Pass `-f compose.yaml` to compose."))
+        #expect(MergeClaimReader.isAboutMerging("Run `docker compose -f compose.yaml up`."))
+        #expect(!MergeClaimReader.isAboutMerging("Follow it with `docker compose logs -f web`."))
         #expect(!MergeClaimReader.isAboutMerging("Helm values override the chart defaults in docker compose."))
         #expect(!MergeClaimReader.isAboutMerging("docker compose up starts the stack."))
         #expect(!MergeClaimReader.isAboutMerging("The override keyword in Swift."))

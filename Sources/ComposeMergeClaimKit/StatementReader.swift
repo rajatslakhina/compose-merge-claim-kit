@@ -60,7 +60,15 @@ enum StatementReader {
     static func verb(after topics: [String], in text: String, yes: [String], no: [String],
                      negates: Bool = true) -> Bool? {
         guard let topic = Clauses.position(text, topics) else { return nil }
-        let rest = String(text[topic...])
+        var rest = String(text[topic...])
+        // The verb must belong to this topic: stop at the next topic of another family.
+        let others = (listTopics + mappingTopics + commandTopics).filter { !topics.contains($0) }
+        if let first = rest.split(separator: " ").first, let next = Clauses.position(
+            String(rest.dropFirst(first.count)), others) {
+            let offset = rest.distance(from: rest.startIndex, to: rest.dropFirst(first.count).startIndex)
+            let cut = String(rest.dropFirst(first.count))
+            rest = String(rest.prefix(offset + cut.distance(from: cut.startIndex, to: next)))
+        }
         let first = Clauses.position(rest, yes)
         let second = Clauses.position(rest, no)
         let says: Bool
@@ -74,12 +82,18 @@ enum StatementReader {
         return negates && Clauses.negationCount(String(rest[..<verb])) == 1 ? !says : says
     }
 
+    static let listTopics = ["ports", "volumes", "lists", "list", "sequences", "arrays", "expose", "dns",
+                             "port mappings"]
+    static let mappingTopics = ["environment", "environment variables", "env vars", "labels"]
+    static let commandTopics = ["command", "entrypoint", "healthcheck test", "test command"]
+
     static func lists(_ text: String, _ stripped: String) -> Bool? {
         guard mentionsFiles(text), !text.contains("!override"), !text.contains("!reset"),
               !Words.containsAny(text, ["same target", "same mount", "same path", "same container path", "same key",
                                         "same port", "same mapping", "same entry", "matching", "same item"]),
               !text.contains("[]"), !Words.containsAny(text, ["empty list", "empty array"]) else { return nil }
-        let topics = ["ports", "volumes", "lists", "sequences", "arrays", "expose", "dns", "port mappings"]
+        let topics = listTopics
+        if let says = verb(after: topics, in: stripped, yes: appendVerbs, no: replaceVerbs) { return says }
         // "override files replace lists": the verb before its object.
         for verb in ["replace", "replaces", "overwrite", "overwrites", "wipe out", "wipes out", "discard", "discards"] {
             for object in topics where Words.containsAny(stripped, ["\(verb) \(object)", "\(verb) the \(object)",
@@ -88,12 +102,12 @@ enum StatementReader {
                 return Clauses.negationCount(stripped) == 1
             }
         }
-        return verb(after: topics, in: stripped, yes: appendVerbs, no: replaceVerbs)
+        return nil
     }
 
     static func mappings(_ text: String, _ stripped: String) -> Bool? {
         guard mentionsFiles(text) else { return nil }
-        let topics = ["environment", "environment variables", "env vars", "labels"]
+        let topics = mappingTopics
         let merges = appendVerbs + ["kept", "preserved"]
         guard let raw = verb(after: topics, in: stripped, yes: merges, no: replaceVerbs, negates: false),
               let says = verb(after: topics, in: stripped, yes: merges, no: replaceVerbs) else { return nil }
@@ -106,15 +120,15 @@ enum StatementReader {
 
     static func commands(_ text: String, _ stripped: String) -> Bool? {
         guard mentionsFiles(text) else { return nil }
-        return verb(after: ["command", "entrypoint", "healthcheck test", "test command"], in: stripped,
-                    yes: replaceVerbs, no: appendVerbs)
+        return verb(after: commandTopics, in: stripped, yes: replaceVerbs, no: appendVerbs)
     }
 
     static func emptyList(_ text: String, _: String) -> Bool? {
         guard text.contains("[]") || Words.containsAny(text, ["empty list", "empty array", "empty sequence"]),
               !text.contains("!reset"), Words.containsAny(text, ["ports", "volumes", "list", "override", "base",
                                                                  "expose", "dns", "environment"]) else { return nil }
-        if Words.containsAny(text, clearVerbs) { return false }
+        // "removes nothing": the clear verb is negated by its object.
+        if Words.containsAny(text, clearVerbs) { return Words.containsAny(text, ["nothing", "none"]) }
         if Words.containsAny(text, ["keeps", "kept", "adds nothing", "has no effect", "no effect", "is ignored",
                                     "still", "stay", "stays", "remain", "remains"]) {
             return true
@@ -126,13 +140,25 @@ enum StatementReader {
         let earlier = ["the first file", "the base file", "the earlier file", "earlier files", "the first -f",
                        "the first one", "the original file", "the main file"]
         let later = ["the last file", "the later file", "later files", "the second file", "the last -f",
-                     "subsequent files", "each later file", "the override file", "the last one", "later -f"]
-        guard let subject = Clauses.position(text, earlier + later),
-              let phrase = (earlier + later).first(where: { text[subject...].hasPrefix($0) }) else { return nil }
-        // "the override file" later in the clause is a noun, not the verb "override".
-        let rest = nouns(String(text[text.index(subject, offsetBy: phrase.count)...]))
-        guard Words.containsAny(rest, winVerbs) else { return nil }
-        return later.contains(phrase)
+                     "subsequent files", "each later file", "the override file", "the last one", "later -f",
+                     "each later one", "later ones", "the later one", "each later"]
+        var subjects: [(String.Index, String)] = []
+        for phrase in earlier + later {
+            var start = text.startIndex
+            while let range = text.range(of: phrase, range: start..<text.endIndex) {
+                if Words.bounded(text, range, phrase) { subjects.append((range.lowerBound, phrase)) }
+                start = range.upperBound
+            }
+        }
+        subjects.sort { $0.0 < $1.0 }
+        for (number, (position, phrase)) in subjects.enumerated() {
+            let end = number + 1 < subjects.count ? subjects[number + 1].0 : text.endIndex
+            // "the override file" later in the clause is a noun, not the verb "override".
+            let rest = nouns(String(text[text.index(position, offsetBy: phrase.count)..<max(end, text.index(
+                position, offsetBy: phrase.count))]))
+            if Words.containsAny(rest, winVerbs) { return later.contains(phrase) }
+        }
+        return nil
     }
 
     /// Ways to say the override needs a `-f` to be read.
@@ -146,6 +172,7 @@ enum StatementReader {
               !Words.containsAny(text, ["-f", "--file", "explicitly", "specify", "specified", "name the files",
                                         "COMPOSE_FILE".folded]) else {
             if Words.containsAny(text, needsFile),
+               !ComposeFile.names(in: text).contains(where: { ComposeFile.role($0) == .other }),
                Words.containsAny(text, ["-f", "--file"]), Words.contains(text, "override") {
                 return false
             }

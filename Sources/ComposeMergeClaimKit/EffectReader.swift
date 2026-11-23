@@ -15,11 +15,13 @@ struct EffectReader {
                             "in the base", "the original", "originally", "before", "previously", "by itself",
                             "on its own", "alone", "the override sets", "the override has", "the base has",
                             "the base sets", "the override says", "the base says", "the override defines",
-                            "the base defines", "earlier"]
+                            "the base defines", "earlier", "the override", "the base", "by default", "normally",
+                            "default"]
     static let mergedCue = ["with both", "both files", "with the override", "with this override", "with that override",
                             "together", "merged", "merging", "combined", "the result", "ends up", "end up",
                             "effective", "final", "in the end", "now", "after the merge", "when compose merges",
-                            "once merged", "after merging"]
+                            "once merged", "after merging", "still", "keeps", "no longer", "instead of", "anymore",
+                            "these files", "both"]
 
     func claims(in sentence: String) -> [MergeClaim.Subject] {
         let services = scene.services

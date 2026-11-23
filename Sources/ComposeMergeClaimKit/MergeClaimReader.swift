@@ -27,22 +27,26 @@ public struct MergeClaimReader: Sendable {
         if names.contains(where: { ComposeFile.role($0) != .base }) { return true }
         let compose = Words.containsAny(folded, ["docker compose", "docker-compose", "compose file", "compose files"])
             || !names.isEmpty
-        return compose && Words.containsAny(folded, ["override", "-f", "merge", "merges", "merged", "merging",
-                                                     "multiple compose files", "several compose files", "later file",
-                                                     "last file", "first file", "base file", "later files",
-                                                     "earlier file"])
+        let fileList = Commands.selections(in: text).contains { if case .files = $0 { true } else { false } }
+        let merging = ["override", "merge", "merges", "merged", "merging", "multiple compose files",
+                       "several compose files", "later file", "last file", "first file", "base file", "later files",
+                       "earlier file"]
+        return fileList || compose && Words.containsAny(folded, merging)
     }
 
     /// Each sentence is judged against the files the latest `docker compose` command before it reads (its own command
-    /// first); before any command, against the one the answer runs, if it runs only one.
+    /// first). Before any command, an answer that runs compose with `-f` somewhere is unclear. A turn that shows
+    /// compose files is read with those files only, so an override from an earlier turn does not linger.
     func allClaims(in text: String, context: String, earlier: MergeScene) -> [MergeClaim] {
-        var scene = earlier
+        var scene = MergeScene()
+        Self.remember(context + "\n" + text, into: &scene)
+        if scene.files.isEmpty { scene = earlier }
         Self.remember(context, into: &scene)
         let before = scene.selection
         Self.remember(text, into: &scene)
         let about = Self.isAboutMerging(text) || Self.isAboutMerging(context)
         let all = Commands.selections(in: text)
-        var current = all.isEmpty || Commands.combined(all) == .unclear ? before : Commands.combined(all)
+        var current = all.allSatisfy { $0 == .defaults } ? before : .unclear
         scene.selection = current
         let first = scene
         var claims: [MergeClaim] = []

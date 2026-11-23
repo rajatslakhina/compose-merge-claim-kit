@@ -29,6 +29,8 @@ A file's name comes from the fence's info string, its first comment line, or the
 
 A stated result that matches the merge **holds**. One that does not is **wrong** only when one of eight known misreadings of the merge gives exactly what the answer says. Any other mismatch is **unchecked**. That rule keeps the kit quiet when it cannot tell what the answer meant.
 
+Four of those misreadings (`listReplaced`, `mappingReplaced`, `earlierFileWins`, `overrideNotLoaded`) give what one file says on its own, so a sentence that may just describe one file ("`DEBUG` is `0` by default") is wrong only when it says it is about the merged files ("with both files", "now", "still", "no longer") or runs its own `docker compose` command. `overrideLoadedWithFile` needs the `-f` command in the same sentence. Before any command, an answer that runs compose with `-f` somewhere is unchecked, and a turn that shows compose files is read with those files only.
+
 | Slip | The mistake | What compose does |
 |---|---|---|
 | `listReplaced` | a later file's list replaces the earlier one | appends it; `ports` and `volumes` merge items with the same key; `!override` replaces |
@@ -121,13 +123,13 @@ What the oracle showed that the docs do not say:
 | Gate | Result |
 |---|---|
 | `swift build` | 0 warnings, 0 errors |
-| `swift test` | 49 tests in 12 suites (329 parameterized cases), 0 failures |
-| Line coverage | **100.00%** (1933 lines) on all 20 library files |
-| Function coverage | **100.00%** (412 functions) |
-| Region coverage | 99.18% (1330/1341) |
+| `swift test` | 50 tests in 12 suites (340 parameterized cases), 0 failures |
+| Line coverage | **100.00%** (1975 lines) on all 20 library files |
+| Function coverage | **100.00%** (420 functions) |
+| Region coverage | 99.20% (1364/1375) |
 | `swiftlint lint --strict` | 0 violations (SwiftLint 0.63.2, run for real) |
 | Parity | 200/200 cases match `docker compose config` |
-| Probes | 42 correct answers never called wrong; 19 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught) |
+| Probes | 53 correct answers never called wrong; 19 wrong answers caught with the right slip; 3 realistic multi-paragraph answers (2 verified, 1 caught); a later turn with a new base file is not read with the old override |
 
 ![Tests](Screenshots/tests.svg)
 

@@ -14,6 +14,20 @@ struct MergeEvaluator {
         .earlierFileWins: ["first", "precedence", "wins", "priority", "earlier"]
     ]
 
+    /// Slips that reproduce what a single file says: a sentence that may just describe that file is wrong only when
+    /// it says it is about the merged files, or runs its own command.
+    static let singleFile: Set<MergeFinding.Slip> = [.earlierFileWins, .overrideNotLoaded, .mappingReplaced,
+                                                     .listReplaced]
+
+    static func applies(_ slip: MergeFinding.Slip, to claim: MergeClaim) -> Bool {
+        let commands = Commands.selections(in: claim.sentence)
+        if slip == .overrideLoadedWithFile {
+            return commands.contains { if case .files = $0 { true } else { false } }
+        }
+        guard singleFile.contains(slip) else { return true }
+        return !commands.isEmpty || Words.containsAny(Clauses.plain(claim.sentence), EffectReader.mergedCue)
+    }
+
     enum Check: Equatable {
         case holds
         /// What the merged files give instead, as one sentence.
@@ -56,8 +70,13 @@ struct MergeEvaluator {
                 return Self.check(claim.subject, Self.project(variant, MergeEngine(slip: slip))) == .holds
             }
             let text = claim.sentence.folded
-            if let slip = fitting.first(where: { Words.containsAny(text, Self.cues[$0] ?? []) }) ?? fitting.first {
+            let usable = fitting.filter { Self.applies($0, to: claim) }
+            if let slip = usable.first(where: { Words.containsAny(text, Self.cues[$0] ?? []) }) ?? usable.first {
                 return MergeFinding(claim: claim, outcome: .wrong(slip), actual: actual + " " + Wording.rule(slip))
+            }
+            if !fitting.isEmpty {
+                return MergeFinding(claim: claim, outcome: .unchecked(
+                    "one file alone says this, and the sentence does not say it is about the merged files"))
             }
             return MergeFinding(claim: claim, outcome: .unchecked(
                 "the merged files give something else (" + String(actual.dropLast())

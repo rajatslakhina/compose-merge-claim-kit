@@ -59,6 +59,19 @@ struct ProbeTests {
         "In docker compose, `!override` lets an override file replace the ports instead of appending to them.",
         "Docker compose override files don't replace lists; they append to them.",
         "To replace the base ports in docker compose, tag the override's list `!override`.",
+        pair + "`web` normally runs `npm start`; the override changes it to `npm run dev`.",
+        pair + "`DEBUG` is `0` by default; the override sets it to `1`.",
+        pair + "`LOG_LEVEL` is not set by the override, so it stays `info`.",
+        pair + "Compose reads both files automatically, so `web` publishes `8080` and `8081`. To skip the override in "
+            + "production, run `docker compose -f docker-compose.yml up -d`.",
+        "With docker compose, the first `-f` file is the base and each later one overrides it.",
+        "In docker compose, unlike `command`, `ports` from the override are merged with the base list.",
+        "In docker compose, `ports: []` in the override removes nothing.",
+        "With docker compose, you must pass `-f docker-compose.prod.yml` for the production override.",
+        pair + "`web` publishes `8081`.",
+        pair + "`web` runs `npm start` from the base file.",
+        pair + "With these files, `web` publishes `8080` and `8081`. Run `docker compose -f docker-compose.yml "
+            + "-f docker-compose.dev.yml up`.",
     ]
 
     static let wrong: [(String, MergeFinding.Slip)] = [
@@ -167,6 +180,18 @@ struct ProbeTests {
         let wrong = check(Self.replacedLists)
         #expect(wrong.verdict == .wrong)
         #expect(Set(slips(wrong)) == [.listReplaced], "\(wrong.findings.map(\.claim.summary))")
+    }
+
+    @Test("A later turn that shows a new base file alone is not read with the earlier override")
+    func laterTurn() async {
+        let ledger = MergeLedger()
+        let first = await ledger.review(pair + "With both files, `web` publishes `8080` and `8081`.")
+        #expect(first.verdict == .verified)
+        let newBase = yaml("docker-compose.yml", "services:", "  web:", "    image: myapp:2.0", "    ports:",
+                           "      - \"3000:3000\"")
+        let second = await ledger.review(newBase + "Check it with `docker compose logs -f web`. With these files, "
+            + "`web` publishes only `3000`.")
+        #expect(second.verdict != .wrong, "\(second.findings.map(\.outcome))")
     }
 
     @Test("Correct answers are never called wrong", arguments: correct.indices)

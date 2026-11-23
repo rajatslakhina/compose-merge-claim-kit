@@ -7,13 +7,13 @@
 <text x="360" y="64" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">0&#160;warnings,&#160;0&#160;errors&#160;(Swift&#160;6.4.2,&#160;macOS)</text>
 <rect x="20" y="76" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="94" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">swift&#160;test&#160;--no-parallel</text>
-<text x="360" y="94" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">49&#160;tests&#160;in&#160;12&#160;suites,&#160;329&#160;parameterized&#160;cases,&#160;0&#160;failures</text>
+<text x="360" y="94" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">50&#160;tests&#160;in&#160;12&#160;suites,&#160;340&#160;parameterized&#160;cases,&#160;0&#160;failures</text>
 <rect x="20" y="106" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="124" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">llvm-cov&#160;lines</text>
-<text x="360" y="124" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(1933&#160;lines)&#160;on&#160;all&#160;20&#160;library&#160;files</text>
+<text x="360" y="124" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(1975&#160;lines)&#160;on&#160;all&#160;20&#160;library&#160;files</text>
 <rect x="20" y="136" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="154" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">llvm-cov&#160;functions</text>
-<text x="360" y="154" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(412&#160;functions);&#160;regions&#160;99.18%&#160;(1330/1341)</text>
+<text x="360" y="154" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">100.00%&#160;(420&#160;functions);&#160;regions&#160;99.20%&#160;(1364/1375)</text>
 <rect x="20" y="166" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="184" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">swiftlint&#160;lint&#160;--strict</text>
 <text x="360" y="184" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">0&#160;violations&#160;(SwiftLint&#160;0.63.2)</text>
@@ -22,7 +22,7 @@
 <text x="360" y="214" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">200&#160;of&#160;200&#160;merge&#160;cases&#160;match&#160;(Docker&#160;Compose&#160;2.32.4)</text>
 <rect x="20" y="226" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="244" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">probes:&#160;correct&#160;answers</text>
-<text x="360" y="244" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">42&#160;never&#160;called&#160;wrong;&#160;2&#160;realistic&#160;answers&#160;verified</text>
+<text x="360" y="244" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">53&#160;never&#160;called&#160;wrong;&#160;2&#160;realistic&#160;answers&#160;verified</text>
 <rect x="20" y="256" width="960" height="26" rx="6" fill="#111827"/>
 <text x="34" y="274" fill="#93c5fd" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">probes:&#160;wrong&#160;answers</text>
 <text x="360" y="274" fill="#86efac" font-family="Menlo, Monaco, monospace" font-size="12" text-anchor="start" font-weight="normal">19&#160;caught&#160;with&#160;the&#160;right&#160;slip;&#160;1&#160;realistic&#160;answer&#160;caught</text>
